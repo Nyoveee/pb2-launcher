@@ -8,7 +8,7 @@ html, body {
 
 body {
     background-color: #020016;
-    font-family: Calibri;
+    font-family: Calibri, sans-serif;
 }
 
 #updateButtonSection{

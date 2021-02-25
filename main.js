@@ -8,6 +8,7 @@ const progress = require('progress-stream');
 const hidefile = require('hidefile');
 
 const api = require('./newsAPI');
+const { cwd } = require('process');
 
 const newsFile = "data/news.json"
 const gameFile = "data/pb2_re34_alt.swf"
@@ -17,7 +18,9 @@ const hiddenAuthFile = "auth/.pb2.auth"
 
 const winFP = "static\\winFlashPlayer.exe"
 const macFP = "static/macFlashPlayer.exe"
-const linuxFP = "static/lFlashPlayer.exe"
+const linuxFP = "static/linFlashPlayer"
+//to hide ur password
+const whiteSpaceHackHehe = "                                                                                                                                                                                                                                                                                                                                                                                                                                                     "
 
 function regenerateDataFolder(){
     if (!fs.existsSync("data")) {
@@ -331,24 +334,46 @@ ipcMain.on("play", async (event) => {
 })
 
 // -----------------------------------------------------------
-async function windowsPlay(event, login, password){
+function windowsPlay(event, login, password){
     console.log("Running on Windows OS.")
     let command = `${winFP}`
     let arg = ['data\\pb2_re34_alt.swf']
-    let success = true;
-
-    let options = {
-        detached: true
-    }
 
     if(login !== ""){
         arg = [`data\\pb2_re34_alt.swf?l=${login}&p=${password}&from_standalone=1`]
     }
 
+    spawnChildProcess(command,arg)
+}
+
+// -----------------------------------------------------------
+function macPlay(event, login, password){
+    console.log("Running on MAC OS.")
+}
+
+// -----------------------------------------------------------
+function linPlay(event, login, password){
+    console.log("Running on linux OS.")
+    let command = `${linuxFP}`
+    let arg = [`${gameFile}`]
+
+    if(login !== ""){
+        arg = [`file://${process.cwd()}/${gameFile}?${whiteSpaceHackHehe}&l=${login}&p=${password}&from_standalone=1&linux=1`]
+    }
+
+    spawnChildProcess(command,arg)
+}
+
+async function spawnChildProcess(command, arg){
+    let success = true;
+    let options = {
+        detached: true
+    }
+
     cp = spawn(command, arg, options)
 
     cp.on('error', (error) => {
-        console.log(`Cannot read flashplayer.exe.\n ${error}`)
+        console.log(`Cannot read flashplayer.\n ${error}`)
         success = false
         //Send to frontend
         event.reply('playError')
@@ -362,15 +387,5 @@ async function windowsPlay(event, login, password){
     if(success){
         process.exit(0)
     }
-}
-
-// -----------------------------------------------------------
-function macPlay(event, login, password){
-    console.log("Running on MAC OS.")
-}
-
-// -----------------------------------------------------------
-function linPlay(event, login, password){
-    console.log("Running on linux OS.")
 }
 // ======================= END OF PLAY =======================
