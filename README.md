@@ -5,7 +5,7 @@ Developed via ElectronJs. A basic launcher that works on Windows 7 and above, Ma
 Make sure you have NodeJs installed.
 
 On the root directory,
-Type `npm i` to install all the dependencies.
+type `npm i` to install all the dependencies.
 Type `npm start` to run the application.
 
 ### Functionalities
