@@ -1,0 +1,485 @@
+html, body {
+    height: 100%;
+}
+
+:root {
+    --footerSize: 130px;
+}
+
+body {
+    background-color: #020016;
+    font-family: Calibri;
+}
+
+#updateButtonSection{
+    display: inline-block;
+}
+
+#container, #footer{
+    display: grid;
+    grid-template-columns: 60% 40%;
+}
+
+.hidden{
+    display: none;
+}
+
+#footer{
+    height: var(--footerSize);
+}
+
+a{
+    color:rgb(238, 255, 0);
+    text-decoration: none;
+}
+
+a:hover{
+    color:rgb(130, 163, 255);
+}
+
+svg {
+    z-index: -1;
+    position: absolute;
+}
+
+.newsBox{
+    color: white;
+    background-color: #200051;
+    padding: 24px 0 0 1.5em;
+    /*24px is top padding.*/
+    height: calc(100vh - 24px - var(--footerSize));
+}
+
+.footerNews{
+    color: white;
+    background-color: #200051;
+}
+
+#newsPageNav{
+    padding-top: 1.2em;
+    height: 16px;
+}
+
+#newsContainer{
+    /*13.33px + 14px is the size of Recent News...*/
+    height: calc(100vh - 24px - var(--footerSize) - 13.33px - 14px);
+    margin-bottom: 1em;
+    overflow-y: scroll;
+}
+
+#loginPane{
+    color: white;
+    height: 100%;
+}
+
+#newsHeader{
+    font-size: 16px;
+    margin-bottom: 1em;
+}
+
+.newsSection{
+    padding: 1em 2em 1em 0em;;
+}
+
+.newsSection:first-child{
+    padding: 0.5em 2em 1em 0em;;
+}
+
+.newsDate{
+    font-size: 24px;
+    color: #F5FF98;
+    padding-bottom: 0.5em;
+}
+
+.newsContent{
+    font-size: 16px;
+    line-height: 1.2em;
+}
+
+#newsPageNav{
+    text-align: center;
+}
+
+.clickable{
+    cursor: pointer;
+}
+
+.clickable:hover{
+    text-decoration: underline;
+}
+
+.pgNo{
+    font-size: 15px;
+    display: inline;
+    padding: 0.3em 0.3em 0 0.3em;
+}
+
+.pgNo:hover{
+    font-size: 16px;
+    text-decoration: underline;
+}
+
+.pgNoSelected{
+    color: #F9FF49;
+    font-weight: bold; 
+}
+
+#updateButton{
+    text-align: center;
+    display: inline-block;
+    color: white;
+    border: none;
+    font-size: 14px;
+    padding: 0.8em 0;
+    margin: 2.5em 0 0 1em;
+    width: 150px;
+}
+
+.notReady{
+    background-color: #211a4e;
+    cursor: not-allowed;
+}
+
+.readyUpdate{
+    background-color: #251C5C;
+}
+
+.readyUpdate:hover{
+    background-color: #312775;
+}
+
+.readyUpdate:active{
+    background-color: #211a4e;
+}
+
+#lastUpdate{
+    display: inline-block;
+    color: #A9A9A9;
+    margin: 3.05em 0 0 1em;
+    font-size: 13.5px;
+}
+
+title{
+    display: block;
+    color: white;
+    font-weight: bold;
+    font-size: 50px;
+    text-align: center;
+    margin-top: 0.5em;
+}
+
+sub{
+    display: block;
+    text-align: center;
+    color: #979797;
+    margin-top: 0.5em;
+    padding-bottom: 1em;
+}
+
+#infoContainer{
+    height: calc(100vh - var(--footerSize) - 115px);
+    overflow-y: auto;
+}
+
+.bannerIcon{
+    width: 70px;
+    border-radius: 50%;
+}
+
+.banner{
+    position: relative;
+    width: 80%;
+    margin: 2em auto;
+}
+
+.bannerSpan{
+    line-height: 1.2em;
+    position: absolute;
+    display: inline-block;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    width: calc(90% - 70px);
+    padding: 0 1em;
+    color: white;
+}
+
+.bannerSpan:hover{
+    color:rgb(247, 244, 103);
+    text-decoration: none;
+}
+
+#featuresBanner{
+    height: 70px;
+    width: 220px;
+    margin: 0 auto;
+    background-color: #0e0025;
+    color: #C2C2C2;
+    border-radius: 20px;
+}
+
+#featuresBanner span{
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+#featuresSection{
+    position: relative;
+    width: 100%;
+}
+
+.footerLogin{
+    position: relative;
+}
+
+#preLogin{
+    width: 462px;
+    margin: 1em 0 0 auto;
+    /*display: none;*/
+}
+
+#preLoad{
+    color: white;
+    text-align: center;
+    margin-top: 5.5em;
+}
+
+#preLogin label, #posLogin label{
+    color: white;
+}
+
+#preLogin label{
+    position: relative;
+    top: 0.1em;
+    text-align: right;
+    padding-right: 0.2em;
+    display: inline-block;
+    width: 7em;
+    font-size: 15px;
+}
+
+.grayButton{
+    background-color: #131314;
+    text-align: center;
+    border: none;
+    color: white;
+    padding: 0.7em 2.4em;
+    margin: 0.5em 0 0.5em 1em;
+    font-size: 13px;
+}
+
+.updateGameButton{
+    padding: 0.7em 1em;
+    width: 107px;
+}
+
+.grayButton:hover{
+    background-color: #202022;
+}
+.grayButton:active{
+    background-color: #0e0e0f;
+}
+
+.blockedBtn{
+    background-color: #0e0e0f;
+    cursor: not-allowed;
+}
+
+.blockedBtn:hover{
+    background-color: #0e0e0f;
+    cursor: not-allowed;
+}
+
+#passInfo{
+    color: grey;    
+}
+
+#passInfo:hover{
+    color: rgb(247, 244, 103);
+    cursor: pointer;
+}
+
+#passInfo:active{
+    color: rgb(255, 251, 230);    
+}
+
+
+#loginSection span, #passSection span{
+    position: relative;
+}
+
+.purpleInput{
+    background-color: #161241;
+    border: none;
+    color: white;
+    padding: 0.75em 0.5em;
+    margin: 0.5em 0.8em;
+    font-size: 14px;
+    width: 40%;
+}
+
+#posLogin{
+    display: none;
+    color: white;
+}
+
+#playSection{
+    width: 450px;
+    margin: 0 auto;
+    text-align: center;
+}
+#welcomeMsg{
+    text-align: center;
+    margin-bottom: 0.7em;
+    word-wrap: break-word;
+}
+
+#welcomeMsg a{
+    color:rgb(247, 244, 103);
+    font-weight: bold;
+}
+
+.buttonRightMargin{
+    margin-right: 1em;
+}
+
+.yellow{
+    color:rgb(247, 244, 103);
+}
+
+.blueButton{
+    text-align: center;
+    font-size: 16px;
+    padding: 0.9em 3em;
+    border-radius: 5px;
+    border: none;
+    background-color: #200051;
+    color: white;
+}
+
+.blueButton:hover{
+    background-color: #32007c;
+}
+
+.blueButton:active{
+    background-color: #120030;
+}
+
+.blockedBtn2{
+    background-color: #120030;
+    cursor: not-allowed;
+}
+
+.blockedBtn2:hover{
+    background-color: #120030;
+}
+
+#updateGameNotify{
+    font-size: 14px;
+    height: 25px;
+    text-align: center;
+    color: #808080;
+}
+
+#passwordInfo{
+    z-index: 1;
+    bottom: 45px;
+    display: none;
+    position: absolute;
+    width: 303px;
+    background-color: #2A2A2A;
+    color: white;
+    font-size: 14px;
+    padding: 0.7em;
+    box-shadow: 5px 5px rgba(19, 19, 19, 0.5);
+}
+#updateGame{
+    display: none;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 7px;
+}
+  
+/* Track */
+::-webkit-scrollbar-track {
+background: #200051; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+background: #3a0091; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+background: #312775;; 
+}
+
+@media only screen and (max-width: 1300px) {
+    sub{
+        font-size: 14px;
+    }
+    .bannerSpan{
+        font-size: 14px;
+    }
+    .newsDate{
+        font-size: 25px;
+    }
+    .newsContent{
+        font-size: 14px;
+    }
+    .pgNo{
+        font-size: 14px;
+    }
+    .pgNo:hover{
+        font-size: 15px;
+        text-decoration: underline;
+    }
+}
+
+@media only screen and (max-width: 1160px) {
+    #preLogin{
+        width: 100%;
+    }
+
+    #preLogin label{
+        width: 6em;
+    }
+
+    .grayButton{
+        margin: 0.5em 0px 0.5em 0.5em;
+    }
+
+    .buttonRightMargin{
+        margin-right: 0.5em;    
+    }
+
+    #playSection{
+        width: 100%;
+    }
+    
+}
+
+@media only screen and (max-width: 1100px) {
+    sub{
+        font-size: 13px;
+    }
+    .bannerSpan{
+        font-size: 13px;
+    }
+    .bannerIcon{
+        width: 60px;
+    }
+}
+
+@media only screen and (max-height: 722px) {
+    #featuresSection{
+        display: none;
+    }
+}

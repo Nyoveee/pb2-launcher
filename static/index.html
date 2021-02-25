@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" height="100%" width="100%">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PB2 Launcher</title>
+    <link rel="stylesheet" href="reset.css">  
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body height="100%" width="100%">
+    <div id="container">
+        <div class="newsBox">
+            <p id="newsHeader">Recent news</p>
+            <div id="newsContainer">
+                    <span style="color: #9b9b9b">Loading... Progress: <span id="newsProgress">0</span>%</span>
+                    <!-- Start of newsContainer -->
+                    <!-- 
+                    <div class="newsSection">
+                        <div class="newsDate">24 November 2020</div>
+                        <div class="newsContent">
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+                            when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+                            It has survived not only five centuries, but also the leap into electronic typesetting, 
+                            remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets 
+                            containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker 
+                            including versions of Lorem Ipsum.
+                        </div>
+                    </div>
+                -->
+                <div id="newsPg1" class="hidden">
+
+                </div>
+                <!-- End of newsContainer -->
+            </div>
+        </div>
+        <div class="loginPane">
+            <div>
+                <title>PB2 Launcher</title>
+                <sub>A non-official, fan made PB2 Launcher designed for cross compatibility.</subtitle>
+            </div>
+            <div id="infoContainer">
+                <div id="bannerSection">
+                    <div class="banner">
+                        <img class="bannerIcon" src="images/Eric Gurt.jpg"/><a href="https://twitter.com/Eric_Gurt" class="bannerSpan">Check out Eric Gurt's twitter for updates on the Plazma Burst 2 series!</a>
+                    </div>
+                    <div class="banner">
+                        <img class="bannerIcon" src="images/discord.png"/><a href="https://discord.com/invite/Bhe9rNz" class="bannerSpan">Want to interact with the community? Join the PB2 discord!</a>
+                    </div>
+                    <div class="banner">
+                        <img class="bannerIcon" src="images/support.png"/><a href="https://www.plazmaburst2.com/support/" class="bannerSpan">Need help with any PB2 related issues? Raise a support ticket for swift response.</a>
+                    </div>
+                    <div class="banner">
+                        <img class="bannerIcon" src="images/patreon.png"/><a href="https://www.patreon.com/Eric_Gurt" class="bannerSpan">You can now show your love and support to Eric by becoming a patreon member!</a>
+                    </div>
+                </div>
+                <!--
+                <div id="featuresSection">
+                    <div id="featuresBanner"><span>More coming soon..</span></div>
+                </div>
+                -->
+            </div>
+        </div>
+    </div>
+    
+    <div id="footer">
+        <div class="footerNews">
+            <div id="newsPageNav">
+            </div>
+            <div id="updateButtonSection">
+                <button" id="updateButton" class="notReady">Updating..</button>
+            </div>
+            <div id="lastUpdate">
+                Last update: <span id="lastUpdateDate">Updating..</span>
+            </div>  
+        </div>
+
+        <div class="footerLogin">
+            <div id="preLoad">
+                Loading..
+            </div>
+            <div id="preLogin">
+                <div id="loginSection">
+                    <label>Login</label><input id="loginInput" class="purpleInput"/>
+                </div>
+                <div id="passSection">
+                    <div id="passwordInfo">
+                        Different from your account password, you can find on your edit profile page by clicking on <span class="yellow">[?]</span>.
+                    </div>
+                    <label>Password <span id="passInfo">[?]</span></label><input id="passInput" type="password" class="purpleInput"/><button id="login" style="width: 94px;" class="grayButton">Login</button>
+                </div>
+            </div>
+            <div id="posLogin">
+                <div id="updateGameNotify"><span id="updateGame">Updating game, Progress: <span id="updateGamePerc">0</span>%</span></div>
+                <div id="welcomeMsg">Welcome back, <a id="loginName" class="clickable">User!</a></div>
+                <div id="playSection">
+                    <button id="updateGameBtn" class="grayButton updateGameButton buttonRightMargin blockedBtn">Loading..</button>
+                    <button id="play" class="blueButton blockedBtn2">Play</button>
+                    <button id="relogin" class="grayButton buttonRightMargin">Re-login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script src="script.js"></script>
+</body>
+</html>
