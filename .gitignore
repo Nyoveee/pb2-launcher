@@ -1,3 +1,6 @@
+data
+auth
+
 # Logs
 logs
 *.log
