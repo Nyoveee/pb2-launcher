@@ -45,6 +45,7 @@ function newsExist(){
 
 function createWindow() {
     const win = new BrowserWindow({
+        icon: 'static/favicon.ico',
         show: false,
         width: 1920,
         height: 1080,
@@ -62,6 +63,7 @@ function createWindow() {
     })
 
     win.loadFile('static/index.html')
+    win.removeMenu()
 }
 
 //Start of program
