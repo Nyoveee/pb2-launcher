@@ -50,7 +50,7 @@ function createWindow() {
         width: 1920,
         height: 1080,
         minWidth: 1010,
-        minHeight: 270, 
+        minHeight: 400, 
         backgroundColor: '#020016',
         webPreferences: {
             nodeIntegration: true,
@@ -192,7 +192,13 @@ ipcMain.on("download", (event) => {
     str.on('progress', function(progress) {
         roundedPerc = Math.round(progress.percentage)
         //console.log(roundedPerc+'%');
-        event.reply('download-progress', roundedPerc)
+        try{
+            event.reply('download-progress', roundedPerc)
+        }
+        catch(err){
+            console.log("Download was interrupted.")
+        }
+        
     });
     //-----------------------------------------------
     console.log("Proceed downloading from: " + url);
@@ -212,7 +218,13 @@ ipcMain.on("download", (event) => {
             file.on("finish", () =>{
                 console.log("Download is successful.")
                 //1 means successful update
-                event.reply("download-complete", 1)
+                try{
+                    event.reply("download-complete", 1)
+                }
+                catch(err){
+                    console.log("Completion of game download is interrupted.")
+                }
+                
                 file.close()
             })
 
