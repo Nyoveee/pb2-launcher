@@ -11,6 +11,8 @@ You don't need to worry about this if you are using the installer provided in th
 
 If you are git cloning and running through the source code however, please note that I did not include the flash player for Mac in this git repository. You can obtain the flash player for Mac here: https://www.adobe.com/support/flashplayer/debug_downloads.html
 
+After downloading the flash player, place the entire Flash Player.app in the static folder and it should work now.
+
 ### Functionalities
 - Caches news so user does not have query PB2 server for news everytime launcher is launched. (launcher works in offline mode.)
 - Checks if game is updated / corrupted and redownloads from PB2 server if needed.
