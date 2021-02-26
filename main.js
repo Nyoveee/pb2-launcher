@@ -16,8 +16,9 @@ const url = "https://www.plazmaburst2.com/pb2/pb2_re34.swf"
 const authFile = "auth/pb2.auth"
 const hiddenAuthFile = "auth/.pb2.auth"
 
+
 const winFP = "static\\winFlashPlayer.exe"
-const macFP = "static/macFlashPlayer.exe"
+const macFP = `${process.cwd()}/static/Flash Player.app/Contents/MacOS/Flash Player`
 const linuxFP = "static/linFlashPlayer"
 //to hide ur password
 const whiteSpaceHackHehe = "                                                                                                                                                                                                                                                                                                                                                                                                                                                     "
@@ -162,6 +163,12 @@ ipcMain.on("downloadInitiate", (event) => {
         }
 
         request(options, (err, response, body) => {
+            if(err){
+                console.log("Offline mode.")
+                event.reply("downloadInitiate", false)
+                return
+            }
+            
             if(fileSizeInBytes === parseInt(response.headers['content-length'])){
                 console.log("Game is updated.")
                 event.reply("downloadInitiate", false)
@@ -357,12 +364,21 @@ function windowsPlay(event, login, password){
         arg = [`data\\pb2_re34_alt.swf?l=${login}&p=${password}&from_standalone=1`]
     }
 
-    spawnChildProcess(command,arg)
+    spawnChildProcess(event, command, arg)
 }
 
 // -----------------------------------------------------------
 function macPlay(event, login, password){
     console.log("Running on MAC OS.")
+    let command = `${macFP}`
+
+    let arg = [`${gameFile}`]
+
+    if(login !== ""){
+        arg = [`file://${process.cwd()}/${gameFile}?${whiteSpaceHackHehe}&l=${login}&p=${password}&from_standalone=1`]
+    }
+
+    spawnChildProcess(event, command, arg, false)
 }
 
 // -----------------------------------------------------------
@@ -375,10 +391,14 @@ function linPlay(event, login, password){
         arg = [`file://${process.cwd()}/${gameFile}?${whiteSpaceHackHehe}&l=${login}&p=${password}&from_standalone=1&linux=1`]
     }
 
-    spawnChildProcess(command,arg)
+    spawnChildProcess(event, command, arg)
 }
 
-async function spawnChildProcess(command, arg){
+async function spawnChildProcess(event, command, arg, closeWindow){
+    if(closeWindow === undefined){
+        closeWindow = true
+    }
+    
     let success = true;
     let options = {
         detached: true
@@ -391,15 +411,19 @@ async function spawnChildProcess(command, arg){
         success = false
         //Send to frontend
         event.reply('playError')
+        fs.writeFileSync('data/error.txt', error)
     })
 
     // cp.on('spawn', () => {
     //     console.log("Spawned.")
     // })
     //Current NodeJS version does not support 'spawn' event, so I have to hack it :(
-    await new Promise(r => setTimeout(r, 1000))
-    if(success){
-        process.exit(0)
+    if(closeWindow){
+        await new Promise(r => setTimeout(r, 1000))
+        if(success){
+            process.exit(0)
+        }
     }
+    
 }
 // ======================= END OF PLAY =======================
