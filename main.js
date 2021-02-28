@@ -46,7 +46,9 @@ function newsExist(){
 
 function createWindow() {
     const win = new BrowserWindow({
-        icon: 'static/favicon.ico',
+        //icon: 'static/favicon.ico',
+        //Ubuntu specific
+        icon: 'icon.png',
         show: false,
         width: 1920,
         height: 1080,
