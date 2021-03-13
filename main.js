@@ -27,11 +27,13 @@ function regenerateDataFolder(){
     if (!fs.existsSync("data")) {
         console.log("Missing data folder, creating it..")
         fs.mkdirSync("data")
+        fs.chmodSync("data", 0777)
     }
 
     if (!fs.existsSync("auth")) {
         console.log("Missing auth folder, creating it..")
         fs.mkdirSync("auth")
+        fs.chmodSync("auth", 0777)
     }
 }
 
@@ -48,7 +50,7 @@ function createWindow() {
     const win = new BrowserWindow({
         //icon: 'static/favicon.ico',
         //Ubuntu specific
-        icon: 'icon.png',
+        icon: 'static/icon.png',
         show: false,
         width: 1920,
         height: 1080,
@@ -137,6 +139,7 @@ ipcMain.on("login", (event, login, password) => {
             //event error
             return
         }
+        fs.chmodSync(authFile, 0777)
         hidefile.hide(authFile, (err) => {
             if(err){
                 console.log(`Error hiding file.\n${err}`)
@@ -226,6 +229,7 @@ ipcMain.on("download", (event) => {
 
             file.on("finish", () =>{
                 console.log("Download is successful.")
+                fs.chmodSync(gameFile, 0777)
                 //1 means successful update
                 try{
                     event.reply("download-complete", 1)

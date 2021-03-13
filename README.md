@@ -1,4 +1,4 @@
-# PB2 Launcher
+# PB2 Zen Launcher
 Developed via ElectronJs. A basic launcher that works on Windows 7 and above, MacOS as well as Linux (Ubunutu tested). The installer files will exclude reduc
 
 ### Run

@@ -65,6 +65,8 @@ function writeNewsCache(obj, callback){
             }
 
             console.log("File successfully written.")
+            fs.chmodSync("data/news.json", 0777)
+            fs.chmodSync("data/news.date", 0777)
             callback(0)
         })
     })
