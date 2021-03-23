@@ -8,38 +8,41 @@ const progress = require('progress-stream');
 const hidefile = require('hidefile');
 
 const api = require('./newsAPI');
-const { cwd } = require('process');
+const api2 = require('./filePath');
+const { platform } = require('os');
 
-const newsFile = "data/news.json"
-const gameFile = "data/pb2_re34_alt.swf"
+const newsFile = `data/news.json`
+const newsDate = `data/news.date`
+const gameFile = `data/pb2_re34_alt.swf`
 const url = "https://www.plazmaburst2.com/pb2/pb2_re34.swf"
-const authFile = "auth/pb2.auth"
-const hiddenAuthFile = "auth/.pb2.auth"
-
+const authFile = `auth/pb2.auth`
+const hiddenAuthFile = `auth/.pb2.auth`
+const dataFolder = `data`
+const authFolder = `auth`
 
 const winFP = "static\\winFlashPlayer.exe"
-const macFP = `${process.cwd()}/static/Flash Player.app/Contents/MacOS/Flash Player`
+const macFP = `static/Flash Player.app/Contents/MacOS/Flash Player`
 const linuxFP = "static/linFlashPlayer"
 //to hide ur password
 const whiteSpaceHackHehe = "                                                                                                                                                                                                                                                                                                                                                                                                                                                     "
 
 function regenerateDataFolder(){
-    if (!fs.existsSync("data")) {
+    if (!fs.existsSync(dataFolder)) {
         console.log("Missing data folder, creating it..")
-        fs.mkdirSync("data")
-        fs.chmodSync("data", 0777)
+        fs.mkdirSync(dataFolder)
+        fs.chmodSync(dataFolder, 0777)
     }
 
-    if (!fs.existsSync("auth")) {
+    if (!fs.existsSync(authFolder)) {
         console.log("Missing auth folder, creating it..")
-        fs.mkdirSync("auth")
-        fs.chmodSync("auth", 0777)
+        fs.mkdirSync(authFolder)
+        fs.chmodSync(authFolder, 0777)
     }
 }
 
 //Check if cache of news is stored locally.
 function newsExist(){
-    if (!fs.existsSync("data/news.json")) {
+    if (!fs.existsSync(newsFile)) {
         console.log("Missing news cache, querying from PB2 server...")
         return false
     }
@@ -47,10 +50,20 @@ function newsExist(){
 }
 
 function createWindow() {
+    let iconPath
+    switch(process.platform){
+        case 'win32':
+            iconPath = 'static/favicon.ico'
+            break
+        case 'darwin':
+            iconPath = 'static/icon.png'
+            break
+        case 'linux':
+            iconPath = 'static/icon.icns'
+    }
+
     const win = new BrowserWindow({
-        //icon: 'static/favicon.ico',
-        //Ubuntu specific
-        icon: 'static/icon.png',
+        icon: iconPath,
         show: false,
         width: 1920,
         height: 1080,
@@ -71,7 +84,18 @@ function createWindow() {
     win.removeMenu()
 }
 
+
 //Start of program
+//Run as a packaged .exe
+if(!process.defaultApp){
+    if(process.platform === "darwin"){
+        process.chdir(`${api2.exeFilePath()}/Resources/app`)
+    }
+    else if(process.platform === "win32"){
+        process.chdir(`resources/app`)
+    }
+}
+
 regenerateDataFolder()
 app.whenReady().then(createWindow)
 
@@ -278,7 +302,7 @@ function readNewsFile(event){
                 obj = JSON.parse(data)
                 event.reply("newsComplete", obj)
 
-                fs.readFile("data/news.date", 'utf8', (err, data) => {
+                fs.readFile(newsDate, 'utf8', (err, data) => {
                     if(err){
                         console.log("Error reading news update date")
                         event.reply("newsDate", null)
@@ -378,10 +402,23 @@ function macPlay(event, login, password){
     console.log("Running on MAC OS.")
     let command = `${macFP}`
 
-    let arg = [`${gameFile}`]
+    let arg = ''
 
-    if(login !== ""){
-        arg = [`file://${process.cwd()}/${gameFile}?${whiteSpaceHackHehe}&l=${login}&p=${password}&from_standalone=1`]
+    if(process.defaultApp){
+        if(login !== ""){
+            arg = [`file://${process.cwd()}/${gameFile}?${whiteSpaceHackHehe}&l=${login}&p=${password}&from_standalone=1`]
+        }
+        else{
+            arg = [`${process.cwd()}/${gameFile}`]
+        }
+    }
+    else{
+        if(login !== ""){
+            arg = [`file://${api2.exeFilePath()}/Resources/app/${gameFile}?${whiteSpaceHackHehe}&l=${login}&p=${password}&from_standalone=1`]
+        }
+        else{
+            arg = [`${api2.exeFilePath()}/Resources/app/${gameFile}`]
+        }
     }
 
     spawnChildProcess(event, command, arg, false)
