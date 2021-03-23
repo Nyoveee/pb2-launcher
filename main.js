@@ -55,10 +55,10 @@ function createWindow() {
         case 'win32':
             iconPath = 'static/favicon.ico'
             break
-        case 'darwin':
+        case 'linux':
             iconPath = 'static/icon.png'
             break
-        case 'linux':
+        case 'darwin':
             iconPath = 'static/icon.icns'
     }
 
@@ -91,7 +91,7 @@ if(!process.defaultApp){
     if(process.platform === "darwin"){
         process.chdir(`${api2.exeFilePath()}/Resources/app`)
     }
-    else if(process.platform === "win32"){
+    else{
         process.chdir(`resources/app`)
     }
 }
@@ -428,7 +428,7 @@ function macPlay(event, login, password){
 function linPlay(event, login, password){
     console.log("Running on linux OS.")
     let command = `${linuxFP}`
-    let arg = [`${gameFile}`]
+    let arg = [`${process.cwd()}/${gameFile}`]
 
     if(login !== ""){
         arg = [`file://${process.cwd()}/${gameFile}?${whiteSpaceHackHehe}&l=${login}&p=${password}&from_standalone=1&linux=1`]
