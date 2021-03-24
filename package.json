@@ -1,5 +1,5 @@
 {
-  "name": "Zen",
+  "name": "PB2Launcher",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
@@ -12,7 +12,8 @@
   "license": "ISC",
   "devDependencies": {
     "electron": "^11.2.3",
-    "electron-reloader": "^1.2.0"
+    "electron-reloader": "^1.2.0",
+    "electron-wix-msi": "^3.1.0"
   },
   "dependencies": {
     "download": "^8.0.0",

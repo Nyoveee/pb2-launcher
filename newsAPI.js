@@ -6,7 +6,11 @@
 const request = require('request')
 const fs = require('fs')
 const api2 = require('./filePath');
+
 const isMac = process.platform === "darwin"
+const appDataFolder = `/Users/${require("os").userInfo().username}/AppData/Local/PB2ZenLauncher`
+
+let dataFolder = ``
 
 //https://javascript.info/regexp-introduction
 regexNewsExp = /<strong class="news_date">(.+?(?=<\/strong>))<\/strong>(.+?(?=\s*<div class="news_div"><\/div>|\s*<div align="center">))/gs
@@ -48,10 +52,16 @@ function getNewsAtPg(counter){
 }
 
 function writeNewsCache(obj, callback){
+    if(!process.defaultApp){
+        if(process.platform === "win32"){
+            dataFolder = `${appDataFolder}/data`
+        }
+    }
+
     let today = new Date().toLocaleString('default', { day: 'numeric', month: 'long', year: 'numeric' });
 
     //writing news json
-    fs.writeFile(`${process.cwd()}/data/news.json`, JSON.stringify(obj), (err) => {
+    fs.writeFile(`${dataFolder}/news.json`, JSON.stringify(obj), (err) => {
         if(err){
             console.log("Error writing file!")
             callback(3)
@@ -59,7 +69,7 @@ function writeNewsCache(obj, callback){
         }
         
         //writing date update
-        fs.writeFile(`${process.cwd()}/data/news.date`, today, (err) => {
+        fs.writeFile(`${dataFolder}/news.date`, today, (err) => {
             if(err){
                 console.log("Error writing file!")
                 callback(3)
@@ -67,10 +77,9 @@ function writeNewsCache(obj, callback){
             }
 
             console.log("File successfully written.")
-            
-            //Was playing around with filepath and I technically can make this shorter but no point changing it in case it breaks
-            const newsFile = isMac ? `${api2.exeFilePath()}/Resources/app/data/news.json` : `data/news.json`
-            const newsDate = isMac ? `${api2.exeFilePath()}/Resources/app/data/news.date` : `data/news.date`
+
+            const newsFile = isMac ? `${api2.exeFilePath()}/Resources/app/data/news.json` : `${dataFolder}/news.json`
+            const newsDate = isMac ? `${api2.exeFilePath()}/Resources/app/data/news.date` : `${dataFolder}/news.date`
 
             fs.chmodSync(newsFile, 0777)
             fs.chmodSync(newsDate, 0777)

@@ -9,16 +9,36 @@ const hidefile = require('hidefile');
 
 const api = require('./newsAPI');
 const api2 = require('./filePath');
-const { platform } = require('os');
 
-const newsFile = `data/news.json`
-const newsDate = `data/news.date`
-const gameFile = `data/pb2_re34_alt.swf`
+let dataFolder = `data`
+let authFolder = `auth`
+
+const appDataFolder = `/Users/${require("os").userInfo().username}/AppData/Local/PB2ZenLauncher`
+
+if(!process.defaultApp){
+    if(process.platform === "darwin"){
+        process.chdir(`${api2.exeFilePath()}/Resources/app`)
+    }
+    else if(process.platform === "win32"){
+        if (!fs.existsSync(appDataFolder)) {
+            fs.mkdirSync(appDataFolder)
+        }
+        dataFolder = `${appDataFolder}/data`
+        authFolder = `${appDataFolder}/auth`
+
+        process.chdir(`resources/app`)
+    }
+    else{
+        process.chdir(`resources/app`)
+    }
+}
+
+const newsFile = `${dataFolder}/news.json`
+const newsDate = `${dataFolder}/news.date`
+const gameFile = `${dataFolder}/pb2_re34_alt.swf`
 const url = "https://www.plazmaburst2.com/pb2/pb2_re34.swf"
-const authFile = `auth/pb2.auth`
-const hiddenAuthFile = `auth/.pb2.auth`
-const dataFolder = `data`
-const authFolder = `auth`
+const authFile = `${authFolder}/pb2.auth`
+const hiddenAuthFile = `${authFolder}/.pb2.auth`
 
 const winFP = "static\\winFlashPlayer.exe"
 const macFP = `static/Flash Player.app/Contents/MacOS/Flash Player`
@@ -86,16 +106,6 @@ function createWindow() {
 
 
 //Start of program
-//Run as a packaged .exe
-if(!process.defaultApp){
-    if(process.platform === "darwin"){
-        process.chdir(`${api2.exeFilePath()}/Resources/app`)
-    }
-    else{
-        process.chdir(`resources/app`)
-    }
-}
-
 regenerateDataFolder()
 app.whenReady().then(createWindow)
 
@@ -454,7 +464,7 @@ async function spawnChildProcess(event, command, arg, closeWindow){
         success = false
         //Send to frontend
         event.reply('playError')
-        fs.writeFileSync('data/error.txt', error)
+        fs.writeFileSync(`${dataFolder}/error.txt`, error)
     })
 
     // cp.on('spawn', () => {
