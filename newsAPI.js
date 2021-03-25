@@ -10,8 +10,6 @@ const api2 = require('./filePath');
 const isMac = process.platform === "darwin"
 const appDataFolder = `/Users/${require("os").userInfo().username}/AppData/Local/PB2ZenLauncher`
 
-let dataFolder = ``
-
 //https://javascript.info/regexp-introduction
 regexNewsExp = /<strong class="news_date">(.+?(?=<\/strong>))<\/strong>(.+?(?=\s*<div class="news_div"><\/div>|\s*<div align="center">))/gs
 regexNewsCountExp = /<a href="https:\/\/www\.plazmaburst2\.com\/launcher\/index\.php\?a=&s=&pg=(\d+)">/gs
@@ -52,6 +50,8 @@ function getNewsAtPg(counter){
 }
 
 function writeNewsCache(obj, callback){
+    let dataFolder = `${process.cwd()}/data`
+    
     if(!process.defaultApp){
         if(process.platform === "win32"){
             dataFolder = `${appDataFolder}/data`
@@ -63,6 +63,7 @@ function writeNewsCache(obj, callback){
     //writing news json
     fs.writeFile(`${dataFolder}/news.json`, JSON.stringify(obj), (err) => {
         if(err){
+            console.log(`${dataFolder}/news.json`)
             console.log("Error writing file!")
             callback(3)
             return
