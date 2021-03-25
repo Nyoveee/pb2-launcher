@@ -7,7 +7,6 @@ const request = require('request')
 const fs = require('fs')
 const api2 = require('./filePath');
 
-const isMac = process.platform === "darwin"
 const appDataFolder = `/Users/${require("os").userInfo().username}/AppData/Local/PB2ZenLauncher`
 
 //https://javascript.info/regexp-introduction
@@ -79,8 +78,8 @@ function writeNewsCache(obj, callback){
 
             console.log("File successfully written.")
 
-            const newsFile = isMac ? `${api2.exeFilePath()}/Resources/app/data/news.json` : `${dataFolder}/news.json`
-            const newsDate = isMac ? `${api2.exeFilePath()}/Resources/app/data/news.date` : `${dataFolder}/news.date`
+            const newsFile = `${dataFolder}/news.json`
+            const newsDate = `${dataFolder}/news.date`
 
             fs.chmodSync(newsFile, 0777)
             fs.chmodSync(newsDate, 0777)
