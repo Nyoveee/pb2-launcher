@@ -397,11 +397,11 @@ ipcMain.on("play", async (event) => {
 // -----------------------------------------------------------
 function windowsPlay(event, login, password){
     console.log("Running on Windows OS.")
-    let command = `${winFP}`
-    let arg = ['data\\pb2_re34_alt.swf']
+    let command = winFP
+    let arg = [gameFile]
 
     if(login !== ""){
-        arg = [`data\\pb2_re34_alt.swf?l=${login}&p=${password}&from_standalone=1`]
+        arg = [`${gameFile}?l=${login}&p=${password}&from_standalone=1`]
     }
 
     spawnChildProcess(event, command, arg)
